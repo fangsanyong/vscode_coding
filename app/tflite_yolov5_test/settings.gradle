@@ -1,0 +1,2 @@
+rootProject.name = "tflite_yolov8_test"
+include ':app'

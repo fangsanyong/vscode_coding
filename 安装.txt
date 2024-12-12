@@ -1,0 +1,58 @@
+https://github.com/lp6m/yolov5s_android/tree/master/convert_model
+pt->onnx
+onnx->openvino
+openvino->tflite
+
+
+python3 ./yolov5-7.0/export.py --weights ./jianzhi.pt --img-size 640 640 --simplify
+
+python3 /opt/intel/openvino_2021.3.394/deployment_tools/model_optimizer/mo.py \
+ --input_model jianzhi_640.onnx \
+ --input_shape [1,3,640,640] \
+ --output_dir ./openvino \
+ --data_type FP32 \
+ --output /model.24/m.0/Conv,/model.24/m.1/Conv,/model.24/m.2/Conv
+
+source /opt/intel/openvino_2021/bin/setupvars.sh 
+export PYTHONPATH=/opt/intel/openvino_2021/python/python3.6/:$PYTHONPATH
+openvino2tensorflow \
+--model_path ./openvino/jianzhi_640.xml \
+--model_output_path tflite \
+--output_pb \
+--output_saved_model \
+--output_no_quant_float32_tflite 
+
+
+
+python3 quantize_fsy.py --input_size 640 --pb_path /workspace/tflite/model_float32.pb \
+--output_path /workspace/tflite/model_quantized.tflite --calib_num 100 --image_dir ./coco128/images 
+
+
+
+##################################################################################################
+
+python3 ./yolov5-7.0/export.py --weights ./jianzhi.pt --img-size 320 320 --simplify
+
+python3 /opt/intel/openvino_2021.3.394/deployment_tools/model_optimizer/mo.py \
+ --input_model jianzhi_320.onnx \
+ --input_shape [1,3,320,320] \
+ --output_dir ./openvino \
+ --data_type FP32 \
+ --output Conv_196,Conv_214,Conv_232
+
+source /opt/intel/openvino_2021/bin/setupvars.sh 
+export PYTHONPATH=/opt/intel/openvino_2021/python/python3.6/:$PYTHONPATH
+openvino2tensorflow \
+--model_path ./openvino/jianzhi_320.xml \
+--model_output_path tflite \
+--output_pb \
+--output_saved_model \
+--output_no_quant_float32_tflite 
+
+
+
+python3 quantize_fsy.py --input_size 320 --pb_path /workspace/tflite/model_float32.pb \
+--output_path /workspace/tflite/model_quantized.tflite --calib_num 100 --image_dir ./coco128/images 
+
+
+
