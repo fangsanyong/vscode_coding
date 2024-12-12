@@ -1,6 +1,6 @@
 pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-##################加上源##############################
+##################锟斤拷锟斤拷源##############################
 https://segmentfault.com/a/1190000044200422
 
 pip config set global.index-url https://mirrors.aliyun.com/pypi/simple 
@@ -10,9 +10,9 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
 pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
 pip install -e .
 
-手动替换：
-windows 替换 首先在 windows 当前用户家的目录下，创建一个 pip 文件夹，然后创建一个pip.ini文件，
-修改文件内容为如下；
+锟街讹拷锟芥换锟斤拷
+windows 锟芥换 锟斤拷锟斤拷锟斤拷 windows 锟斤拷前锟矫伙拷锟揭碉拷目录锟铰ｏ拷锟斤拷锟斤拷一锟斤拷 pip 锟侥硷拷锟叫ｏ拷然锟襟创斤拷一锟斤拷pip.ini锟侥硷拷锟斤拷
+锟睫革拷锟侥硷拷锟斤拷锟斤拷为锟斤拷锟铰ｏ拷
 [global] 
 index-url = http://mirrors.aliyun.com/pypi/simple/ 
 [install] 
