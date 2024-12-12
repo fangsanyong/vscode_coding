@@ -1,0 +1,6 @@
+Unable to start debugging. Launch options string provided by the project system is invalid.
+Unable to determine path to debugger. Please specify the "MIDebuggerPath" option.
+
+解决办法：
+which gdb
+sudo apt-get install gdb

@@ -1,0 +1,55 @@
+##################加上源##############################
+https://segmentfault.com/a/1190000044200422
+
+pip config set global.index-url https://mirrors.aliyun.com/pypi/simple 
+pip config set install.trusted-host mirrors.aliyun.com
+
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
+pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
+pip install -e .
+
+手动替换：
+windows 替换 首先在 windows 当前用户家的目录下，创建一个 pip 文件夹，然后创建一个pip.ini文件，
+修改文件内容为如下；
+[global] 
+index-url = http://mirrors.aliyun.com/pypi/simple/ 
+[install] 
+trusted-host=mirrors.aliyun.com 
+#####################docker源###################################
+sudo vim /etc/docker/deamon.json
+{
+"registry-mirrors": [
+        "https://dockerproxy.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://docker.nju.edu.cn",
+        "https://docker.unsee.tech",
+        "https://dockerpull.org",
+        "https://dockerhub.icu"
+    ]
+}
+sudo systemctl restart docker
+
+
+#######################huawei atlass################
+https://www.hiascend.com/developer/ascendhub/detail/724d69b94b394db3b8074a7aca1ced6f
+docker run -it -u root --privileged=True --name atlas200 \
+    --device=/dev/davinci0 \
+    --device=/dev/davinci_manager \
+    --device=/dev/hisi_bbox0 \
+    --device=/dev/hisi_bbox1 \
+    -v /usr/local/dcmi:/usr/local/dcmi \
+    -v /var/log/npu:/var/log/npu \
+    -v /usr/lib64/aicpu_kernels:/usr/lib64/aicpu_kernels:ro \
+    -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+    -v /usr/slog:/usr/slog \
+    -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+    -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
+    -v /usr/local/Ascend/driver/tools/:/usr/local/Ascend/driver/tools/ \
+    -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
+    -v /home/data:/home/HwHiAiUser/fsy \
+    swr.cn-south-1.myhuaweicloud.com/ascendhub/infer-modelzoo:22.0.0 \
+    /bin/bash
+
+
+####################################rk3588################################
+docker run -it --privileged --name haha -v /dev/bus/usb:/dev/bus/usb -v /data/01/rknn_model_zoo-v2.3.0:/rknn_model_zoo debian:12.8 bin/bash
